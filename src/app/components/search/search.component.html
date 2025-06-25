@@ -3,7 +3,11 @@
 
   <form (ngSubmit)="onSearch()" class="search-box d-flex mb-4 w-100 justify-content-center">
     <input [(ngModel)]="searchTerm" name="searchTerm" class="form-control form-control-lg w-50 me-2" placeholder="Enter city name" type="text" />
-    <button type="submit" class="btn btn-lg btn-light shadow">Search</button>
+    <div *ngIf="searchTerm">
+          <button id="search-button" type="submit" class="btn btn-lg btn-light shadow ">
+            <span *ngIf="isLoading"><i class="spinner-border spinner-border-sm me-2 text-dark" role="status"></i></span>
+            <span *ngIf="!isLoading">Search</span> </button>
+    </div>
   </form>
 
   <div *ngIf="errorMessage && searchTerm"  class="alert alert-danger text-center w-25 mt-2">
