@@ -16,6 +16,9 @@
 
   <div *ngIf="weatherData" class="weather-card text-center shadow-lg">
     <h3 class="fw-bold">{{ weatherData.name }}, {{ weatherData.sys.country }}</h3>
+    <div>
+      <p class="text-capitalize"><i class="fas fa-calendar-alt mx-2"></i>{{ localDate }} <i class="fas fa-clock mx-2"></i>{{ localTime }}</p>
+    </div>
     <img [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'" class="weather-icon mb-2" />
     <h1>{{ weatherData.main.temp }}°C</h1>
     <p class="text-capitalize">{{ weatherData.weather[0].description }}</p>

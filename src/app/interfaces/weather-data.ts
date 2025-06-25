@@ -3,7 +3,7 @@ export interface WeatherData {
     speed: number;
   };
   main: {
-    temp: any;
+    temp: number;
     humidity: number;
   };
   weather: {
@@ -14,6 +14,6 @@ export interface WeatherData {
   sys: {
     country: string;
   };
-
+  timezone: number
 }
 
