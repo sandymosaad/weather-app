@@ -19,23 +19,33 @@ import { CommonModule } from '@angular/common';
 export class SearchComponent {
 
   searchTerm: string='';
-  weatherData!:WeatherData ;
+  weatherData!:WeatherData |undefined ;
+  errorMessage:string ='';
+
   constructor(private _weatherService: WeatherService) {}
 
   onSearch(){
+
   this._weatherService.getWeather(this.searchTerm).subscribe({
     next: (data) => {
       console.log('Weather Data:', data);
       this.weatherData=data;
+      this.errorMessage=''
     },
     error: (err) => {
       if (err.status === 404) {
+      this.weatherData = undefined;
+        this.errorMessage='City not found';
         console.log('City not found');
       } else {
         console.error('Error fetching weather:', err);
       }
     }
   });
+
+}
+clearError() {
+  this.errorMessage = '';
 }
 
 }
