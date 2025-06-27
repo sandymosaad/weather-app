@@ -9,6 +9,7 @@ export interface WeatherData {
   weather: {
     description: string;
     icon:string;
+    main:string
   }[];
   name: string;
   sys: {

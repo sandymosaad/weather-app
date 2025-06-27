@@ -22,3 +22,9 @@
 h1, h3 {
   color: white;
 }
+img{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
