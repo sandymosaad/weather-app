@@ -5,6 +5,12 @@ export interface WeatherData {
   main: {
     temp: number;
     humidity: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    sea_level: number;
+    grnd_level: number;
   };
   weather: {
     description: string;
@@ -14,7 +20,10 @@ export interface WeatherData {
   name: string;
   sys: {
     country: string;
+    sunrise: number;
+    sunset: number;
   };
   timezone: number
 }
+
 

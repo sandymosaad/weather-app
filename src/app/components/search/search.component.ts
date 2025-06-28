@@ -26,6 +26,9 @@ export class SearchComponent {
   localDate: string = '';
   localTime: string = '';
 
+  sunriseTime: string = '';
+  sunsetTime: string = '';
+
   constructor(private _weatherService: WeatherService) {}
 
 
@@ -39,23 +42,10 @@ export class SearchComponent {
         this.errorMessage='';
         this.isLoading = false;
         this.changeBackground();
-        if (this.weatherData?.timezone !== undefined) {
-          const utcNow = new Date().getTime() + new Date().getTimezoneOffset() * 60000;
-          const localTime = new Date(utcNow + this.weatherData.timezone * 1000);
+        this.getLocalTimeAndDate();
+        this.getSunRiseAndSunSet();
 
-          this.localTime = localTime.toLocaleTimeString();
-          this.localDate = localTime.toLocaleDateString(undefined, {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          });
-
-          // console.log('localTime:', this.localTime);
-          // console.log('localDate:', this.localDate);
-        }
         },
-
 
       error: (err) => {
         if (err.status === 404) {
@@ -75,6 +65,23 @@ export class SearchComponent {
 
 }
 
+getLocalTimeAndDate() {
+  if (this.weatherData?.timezone !== undefined) {
+      const utcNow = new Date().getTime() + new Date().getTimezoneOffset() * 60000;
+      const localTime = new Date(utcNow + this.weatherData.timezone * 1000);
+
+      this.localTime = localTime.toLocaleTimeString();
+      this.localDate = localTime.toLocaleDateString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+          // console.log('localTime:', this.localTime);
+          // console.log('localDate:', this.localDate);
+    }
+}
 changeBackground() {
   let bgUrl = '';
 
@@ -121,5 +128,17 @@ onSearchTermChange(value: string) {
   }
 }
 
+getSunRiseAndSunSet() {
+  if (this.weatherData?.sys.sunrise !== undefined && this.weatherData?.sys.sunset !== undefined && this.weatherData?.timezone !== undefined) {
+
+     const timezoneOffset = this.weatherData.timezone * 1000;
+
+    const sunriseTime = new Date((this.weatherData.sys.sunrise * 1000)+ timezoneOffset);
+    this.sunriseTime = sunriseTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const sunsetTime = new Date((this.weatherData.sys.sunset * 1000)+ timezoneOffset);
+    this.sunsetTime = sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+}
 
 }
