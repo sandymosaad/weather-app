@@ -28,8 +28,9 @@ export class SearchComponent {
 
   constructor(private _weatherService: WeatherService) {}
 
+
   onSearch(){
-    
+
     this.isLoading = true;
     this._weatherService.getWeather(this.searchTerm).subscribe({
       next: (data) => {
@@ -61,7 +62,7 @@ export class SearchComponent {
         this.weatherData = undefined;
           this.errorMessage='City not found';
           this.isLoading = false;
-          document.body.style.background='linear-gradient(to bottom, #3f87a6, #ebf8e1)';
+          this.resetBackground();
          // console.log('City not found');
         } else {
           //console.error('Error fetching weather:', err);
@@ -106,6 +107,18 @@ changeBackground() {
   document.body.style.backgroundSize = 'cover';
   document.body.style.backgroundRepeat = 'no-repeat';
   document.body.style.backgroundPosition = 'center';
+}
+
+resetBackground() {
+  document.body.style.background = 'linear-gradient(to bottom, #3f87a6, #ebf8e1)';
+}
+
+onSearchTermChange(value: string) {
+  if (!value) {
+    this.resetBackground();
+    this.weatherData = undefined;
+    this.errorMessage = '';
+  }
 }
 
 
