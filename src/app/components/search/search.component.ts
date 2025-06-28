@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {WeatherService} from '../../services/weather.service';
+import { WeatherService } from '../../services/weather.service';
 import { WeatherData } from '../../interfaces/weather-data';
 import { CommonModule } from '@angular/common';
-
+import { WeatherDetailsComponent } from '../weather-details/weather-details.component';
 
 
 
@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-search',
   standalone: true,
   imports: [FormsModule,
-    CommonModule
+    CommonModule,
+    WeatherDetailsComponent
   ],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
@@ -61,8 +62,6 @@ export class SearchComponent {
         }
       }
     });
-
-
 }
 
 getLocalTimeAndDate() {
@@ -140,5 +139,4 @@ getSunRiseAndSunSet() {
     this.sunsetTime = sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 }
-
 }
